@@ -10,9 +10,9 @@ def Read():
 
 
 def Add():
-	Name()
-	Number()
-	Email()
+	name = Name()
+	number= Number()
+	email = Email()
 	print(f"Name: {name}\nPhone Number: {number}\nEmail: {email}\n ADDED")
 	return
 
@@ -49,22 +49,27 @@ def Number():
         if not cleaned_phone.replace("-", "").isdigit() and not (cleaned_phone.startswith('+') and cleaned_phone[1:].replace("-", "").isdigit()):
             print(error + "Invalid phone number.")
             continue
-        confirm = input(f"Is this number correct? {cleaned_phone} (y/n): ").strip().lower()
-        if confirm == 'y':
+        confirm = input(f"Is this number correct? {cleaned_phone} (Y/n): ").strip().lower()
+        if confirm == 'y' or not confirm:
             print(f"Phone number saved: {cleaned_phone}")
             return cleaned_phone
         else:
             print("Let's try again.")
 
 
-
 def Email():
     while True:
-        email = input("Email: ")
+        email = input("Email (press Enter to skip): ").strip()
+        if email == "": 
+            return "None"
+        if "@" not in email or "." not in email:
+            print("Error: Email must contain '@' and '.'")
+            continue
         try:
-            int(email)  # If it can be converted to int, it's invalid
+            int(email) 
             print("Error: Email cannot be just numbers!")
         except ValueError:
             return email
+
 
 Add()
